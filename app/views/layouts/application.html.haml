@@ -1,0 +1,21 @@
+!!!
+%html{:lang => "en"}
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %meta{:charset => "utf-8"}/
+    %meta{:content => "width=device-width, initial-scale=1, shrink-to-fit=no", :name => "viewport"}/
+    %meta{:content => "IE=edge", "http-equiv" => "X-UA-Compatible"}/
+    %title Dashboard | Bootstrap Simple Admin Template
+    %script{:crossorigin => "anonymous", :src => "https://kit.fontawesome.com/d60e922cc5.js"}
+    = stylesheet_link_tag "application", "data-turbo-track": "reload"
+    = javascript_importmap_tags
+  %body
+    .wrapper
+      = render partial: 'shared/sidebar'
+
+      #body.active
+        = render partial: 'shared/topnav'
+        / end of navbar navigation
+        .content
+          .container
+            = yield

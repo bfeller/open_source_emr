@@ -27,5 +27,5 @@
                   = link_to edit_patient_path(patient), class: 'btn btn-outline-info btn-rounded' do
                     %i.fas.fa-pen
                 %td
-                  = link_to patient, :confirm => 'Are you sure?', :method => :delete, class: 'btn btn-outline-danger btn-rounded' do
+                  = link_to patient, :confirm => 'Are you sure?', data: { "turbo-method": :delete }, class: 'btn btn-outline-danger btn-rounded' do
                     %i.fas.fa-trash

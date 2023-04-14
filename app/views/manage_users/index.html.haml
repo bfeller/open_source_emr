@@ -1,0 +1,31 @@
+.page-title
+  %h3 
+    Listing Users
+    = link_to new_manage_user_path, class: 'btn btn-sm btn-outline-primary float-end' do
+      %i.fas.fa-plus
+      %span Add User
+
+
+.row
+  .col-12
+    .box.box-primary
+      .box-body
+        %table.table.table-hover
+          %thead
+            %tr
+              %th Full name
+              %th Email
+              %th
+              %th
+
+          %tbody
+            - for user in @users
+              %tr{ :class => cycle(:odd, :even) }
+                %td= user.full_name
+                %td= user.email
+                %td
+                  = link_to edit_manage_user_path(user), class: 'btn btn-outline-info btn-rounded' do
+                    %i.fas.fa-pen
+                %td
+                  = link_to manage_user_path(user), :confirm => 'Are you sure?', data: { "turbo-method": :delete }, class: 'btn btn-outline-danger btn-rounded' do
+                    %i.fas.fa-trash

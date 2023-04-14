@@ -22,8 +22,14 @@
             - if notice
               .alert.alert-success
                 %strong= notice
+            - if flash[:notice]
+              .alert.alert-success
+                %strong= flash[:notice]
             - if alert
               .alert.alert-danger
                 %strong= alert
+            - if flash[:error]
+              .alert.alert-danger
+                %strong= flash[:error]
 
             = yield

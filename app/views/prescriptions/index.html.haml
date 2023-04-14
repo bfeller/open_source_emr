@@ -28,5 +28,5 @@
                   = link_to edit_prescription_path(prescription), class: 'btn btn-outline-info btn-rounded' do
                     %i.fas.fa-pen
                 %td
-                  = link_to prescription, :confirm => 'Are you sure?', :method => :delete, class: 'btn btn-outline-danger btn-rounded' do
+                  = link_to prescription, :confirm => 'Are you sure?', data: { "turbo-method": :delete }, class: 'btn btn-outline-danger btn-rounded' do
                     %i.fas.fa-trash

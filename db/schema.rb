@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_14_053331) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_14_070052) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -52,6 +52,49 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_14_053331) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "appointments", force: :cascade do |t|
+    t.bigint "patient_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.text "reception_notes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["patient_id"], name: "index_appointments_on_patient_id"
+    t.index ["user_id"], name: "index_appointments_on_user_id"
+  end
+
+  create_table "diagnoses", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "notes", force: :cascade do |t|
+    t.bigint "appointment_id", null: false
+    t.bigint "treatment_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["appointment_id"], name: "index_notes_on_appointment_id"
+    t.index ["treatment_id"], name: "index_notes_on_treatment_id"
+    t.index ["user_id"], name: "index_notes_on_user_id"
+  end
+
+  create_table "patient_contacts", force: :cascade do |t|
+    t.string "name"
+    t.bigint "patient_id", null: false
+    t.boolean "primary"
+    t.string "phone"
+    t.string "email"
+    t.string "address"
+    t.string "contact_method"
+    t.text "notes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["patient_id"], name: "index_patient_contacts_on_patient_id"
+  end
+
   create_table "patient_pharmacies", force: :cascade do |t|
     t.bigint "patient_id", null: false
     t.bigint "pharmacy_id", null: false
@@ -85,6 +128,34 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_14_053331) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "prescriptions", force: :cascade do |t|
+    t.bigint "appointment_id"
+    t.bigint "patient_id", null: false
+    t.bigint "diagnosis_id", null: false
+    t.bigint "user_id", null: false
+    t.text "notes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["appointment_id"], name: "index_prescriptions_on_appointment_id"
+    t.index ["diagnosis_id"], name: "index_prescriptions_on_diagnosis_id"
+    t.index ["patient_id"], name: "index_prescriptions_on_patient_id"
+    t.index ["user_id"], name: "index_prescriptions_on_user_id"
+  end
+
+  create_table "treatments", force: :cascade do |t|
+    t.bigint "diagnosis_id", null: false
+    t.bigint "patient_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "appointment_id", null: false
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["appointment_id"], name: "index_treatments_on_appointment_id"
+    t.index ["diagnosis_id"], name: "index_treatments_on_diagnosis_id"
+    t.index ["patient_id"], name: "index_treatments_on_patient_id"
+    t.index ["user_id"], name: "index_treatments_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "full_name"
     t.string "email", default: "", null: false
@@ -101,7 +172,21 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_14_053331) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "appointments", "patients"
+  add_foreign_key "appointments", "users"
+  add_foreign_key "notes", "appointments"
+  add_foreign_key "notes", "treatments"
+  add_foreign_key "notes", "users"
+  add_foreign_key "patient_contacts", "patients"
   add_foreign_key "patient_pharmacies", "patients"
   add_foreign_key "patient_pharmacies", "pharmacies"
   add_foreign_key "patients", "users"
+  add_foreign_key "prescriptions", "appointments"
+  add_foreign_key "prescriptions", "diagnoses"
+  add_foreign_key "prescriptions", "patients"
+  add_foreign_key "prescriptions", "users"
+  add_foreign_key "treatments", "appointments"
+  add_foreign_key "treatments", "diagnoses"
+  add_foreign_key "treatments", "patients"
+  add_foreign_key "treatments", "users"
 end

@@ -36,22 +36,18 @@
         .nav-dropdown
           %a#nav2.nav-item.nav-link.dropdown-toggle.text-secondary{"aria-expanded" => "false", "data-bs-toggle" => "dropdown", :href => "#"}
             %i.fas.fa-user
-            %span John Doe
+            %span
+              - if current_user.full_name.present?
+                = current_user.full_name 
+              - else
+                = current_user.email
             %i.fas.fa-caret-down{:style => "font-size: .8em;"}
           .dropdown-menu.dropdown-menu-end.nav-link-menu
             %ul.nav-list
               %li
-                %a.dropdown-item{:href => ""}
-                  %i.fas.fa-address-card
-                  Profile
-              %li
-                %a.dropdown-item{:href => ""}
-                  %i.fas.fa-envelope
-                  Messages
-              %li
-                %a.dropdown-item{:href => ""}
+                %a.dropdown-item{:href => edit_manage_user_path(current_user.id)}
                   %i.fas.fa-cog
-                  Settings
+                  My Info
               .dropdown-divider
               %li
                 = link_to destroy_user_session_path, data: { turbo_method: :delete }, class: 'dropdown-item' do

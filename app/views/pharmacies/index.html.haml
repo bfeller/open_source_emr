@@ -32,5 +32,5 @@
                   = link_to edit_pharmacy_path(pharmacy), class: 'btn btn-outline-info btn-rounded' do
                     %i.fas.fa-pen
                 %td
-                  = link_to pharmacy, :confirm => 'Are you sure?', :method => :delete, class: 'btn btn-outline-danger btn-rounded' do
+                  = link_to pharmacy, :confirm => 'Are you sure?', data: { "turbo-method": :delete }, class: 'btn btn-outline-danger btn-rounded' do
                     %i.fas.fa-trash

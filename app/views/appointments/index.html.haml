@@ -1,0 +1,36 @@
+.page-title
+  %h3
+    Listing Appointments
+    = link_to new_appointment_path, class: 'btn btn-sm btn-outline-primary float-end' do
+      %i.fas.fa-plus
+      %span Add Appointment
+
+.row
+  .col-12
+    .box.box-primary
+      .box-body
+        %table.table.table-hover
+          %thead
+            %tr
+                %th Patient
+                %th User
+                %th Start time
+                %th End time
+                %th Reception notes
+                %th
+              %th
+
+          %tbody
+            - for appointment in @appointments
+              %tr{ :class => cycle(:odd, :even) }
+                  %td= appointment.patient
+                  %td= appointment.user
+                  %td= appointment.start_time
+                  %td= appointment.end_time
+                  %td= appointment.reception_notes
+                  %td
+                  = link_to edit_appointment_path(appointment), class: 'btn btn-outline-info btn-rounded' do
+                    %i.fas.fa-pen
+                %td
+                  = link_to appointment, :confirm => 'Are you sure?', :method => :delete, class: 'btn btn-outline-danger btn-rounded' do
+                    %i.fas.fa-trash

@@ -5,7 +5,8 @@
     %meta{:charset => "utf-8"}/
     %meta{:content => "width=device-width, initial-scale=1, shrink-to-fit=no", :name => "viewport"}/
     %meta{:content => "IE=edge", "http-equiv" => "X-UA-Compatible"}/
-    %title Dashboard | Bootstrap Simple Admin Template
+    %title EMR Template
+    = csrf_meta_tags
     %script{:crossorigin => "anonymous", :src => "https://kit.fontawesome.com/d60e922cc5.js"}
     = stylesheet_link_tag "application", "data-turbo-track": "reload"
     = javascript_importmap_tags
@@ -18,4 +19,11 @@
         / end of navbar navigation
         .content
           .container
+            - if notice
+              .alert.alert-success
+                %strong= notice
+            - if alert
+              .alert.alert-danger
+                %strong= alert
+
             = yield

@@ -1,86 +1,32 @@
 %nav#sidebar.active
   .sidebar-header
-    -#%img.app-logo{:alt => "bootraper logo", :src => asset_path("bootstraper-logo.png")}/
+    %img.app-logo{:alt => "bootraper logo", :src => asset_path("logo.png"), width: '120px'}/
   %ul.list-unstyled.components.text-secondary
     %li
-      %a{:href => "dashboard.html"}
+      %a{:href => root_path}
         %i.fas.fa-home
         Dashboard
     %li
       %a{:href => "forms.html"}
-        %i.fas.fa-file-alt
-        Forms
+        %i.fas.fa-calendar
+        Calendar
     %li
-      %a{:href => "tables.html"}
-        %i.fas.fa-table
-        Tables
+      %a{:href => patients_path}
+        %i.fas.fa-users
+        Patients
     %li
-      %a{:href => "charts.html"}
-        %i.fas.fa-chart-bar
-        Charts
-    %li
-      %a{:href => "icons.html"}
-        %i.fas.fa-icons
-        Icons
-    %li
-      %a.dropdown-toggle.no-caret-down{"aria-expanded" => "false", "data-bs-toggle" => "collapse", :href => "#uielementsmenu"}
-        %i.fas.fa-layer-group
-        UI Elements
-      %ul#uielementsmenu.collapse.list-unstyled
-        %li
-          %a{:href => "ui-buttons.html"}
-            %i.fas.fa-angle-right
-            Buttons
-        %li
-          %a{:href => "ui-badges.html"}
-            %i.fas.fa-angle-right
-            Badges
-        %li
-          %a{:href => "ui-cards.html"}
-            %i.fas.fa-angle-right
-            Cards
-        %li
-          %a{:href => "ui-alerts.html"}
-            %i.fas.fa-angle-right
-            Alerts
-        %li
-          %a{:href => "ui-tabs.html"}
-            %i.fas.fa-angle-right
-            Tabs
-        %li
-          %a{:href => "ui-date-time-picker.html"}
-            %i.fas.fa-angle-right
-            Date & Time Picker
-    %li
-      %a.dropdown-toggle.no-caret-down{"aria-expanded" => "false", "data-bs-toggle" => "collapse", :href => "#authmenu"}
-        %i.fas.fa-user-shield
-        Authentication
-      %ul#authmenu.collapse.list-unstyled
-        %li
-          %a{:href => "login.html"}
-            %i.fas.fa-lock
-            Login
-        %li
-          %a{:href => "signup.html"}
-            %i.fas.fa-user-plus
-            Signup
-        %li
-          %a{:href => "forgot-password.html"}
-            %i.fas.fa-user-lock
-            Forgot password
-    %li
-      %a.dropdown-toggle.no-caret-down{"aria-expanded" => "false", "data-bs-toggle" => "collapse", :href => "#pagesmenu"}
+      %a.dropdown-toggle.no-caret-down{"aria-expanded" => "false", "data-bs-toggle" => "collapse", :href => "#configmenu"}
         %i.fas.fa-copy
-        Pages
-      %ul#pagesmenu.collapse.list-unstyled
+        Configuration
+      %ul#configmenu.collapse.list-unstyled
         %li
-          %a{:href => "blank.html"}
+          %a{:href => pharmacies_path}
             %i.fas.fa-file
-            Blank page
+            Pharmacies
         %li
-          %a{:href => "404.html"}
+          %a{:href => diagnoses_path}
             %i.fas.fa-info-circle
-            404 Error page
+            Diagnoses
         %li
           %a{:href => "500.html"}
             %i.fas.fa-info-circle

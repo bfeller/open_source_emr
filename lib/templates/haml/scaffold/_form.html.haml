@@ -1,0 +1,13 @@
+/ end page title
+.row
+  .col-12
+    .card
+      .card-body
+        = form_for @<%= singular_name %>, class: 'form-horizontal' do |f|
+<% for attribute in attributes -%>
+          .mb-3
+            = f.label :<%= attribute.name %>, class: 'form-label'
+            = f.<%= attribute.field_type %> :<%= attribute.name %>, class: 'form-control'
+<% end -%>
+          .mb-3
+            = f.submit "Save", class: 'btn btn-success btn-block'

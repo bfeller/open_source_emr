@@ -1,0 +1,31 @@
+.page-title
+  %h3 
+    Listing Patients
+    = link_to new_patient_path, class: 'btn btn-sm btn-outline-primary float-end' do
+      %i.fas.fa-plus
+      %span Add Patient
+
+
+.row
+  .col-12
+    .box.box-primary
+      .box-body
+        %table.table.table-hover
+          %thead
+            %tr
+              %th Full name
+              %th Dob
+              %th
+              %th
+
+          %tbody
+            - for patient in @patients
+              %tr{ :class => cycle(:odd, :even) }
+                %td= patient.full_name
+                %td= dateify(patient.dob)
+                %td
+                  = link_to edit_patient_path(patient), class: 'btn btn-outline-info btn-rounded' do
+                    %i.fas.fa-pen
+                %td
+                  = link_to patient, :confirm => 'Are you sure?', :method => :delete, class: 'btn btn-outline-danger btn-rounded' do
+                    %i.fas.fa-trash

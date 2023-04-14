@@ -1,0 +1,28 @@
+.page-title
+  %h3
+    Listing Diagnoses
+    = link_to new_diagnosis_path, class: 'btn btn-sm btn-outline-primary float-end' do
+      %i.fas.fa-plus
+      %span Add Diagnosis
+
+.row
+  .col-12
+    .box.box-primary
+      .box-body
+        %table.table.table-hover
+          %thead
+            %tr
+                %th Name
+                %th
+              %th
+
+          %tbody
+            - for diagnosis in @diagnoses
+              %tr{ :class => cycle(:odd, :even) }
+                  %td= diagnosis.name
+                  %td
+                  = link_to edit_diagnosis_path(diagnosis), class: 'btn btn-outline-info btn-rounded' do
+                    %i.fas.fa-pen
+                %td
+                  = link_to diagnosis, :confirm => 'Are you sure?', :method => :delete, class: 'btn btn-outline-danger btn-rounded' do
+                    %i.fas.fa-trash

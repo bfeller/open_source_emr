@@ -1,0 +1,8 @@
+.page-title
+  %h3 
+    Editing <%= singular_name.titleize %>
+    = link_to <%= plural_name %>_path, class: 'btn btn-sm btn-outline-primary float-end' do
+      %i.fas.fa-arrow-left
+      %span Back
+
+= render 'form'

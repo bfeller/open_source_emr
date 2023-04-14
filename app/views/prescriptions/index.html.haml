@@ -1,0 +1,32 @@
+.page-title
+  %h3
+    Listing Prescriptions
+    = link_to new_prescription_path, class: 'btn btn-sm btn-outline-primary float-end' do
+      %i.fas.fa-plus
+      %span Add Prescription
+
+.row
+  .col-12
+    .box.box-primary
+      .box-body
+        %table.table.table-hover
+          %thead
+            %tr
+                %th Appointment
+                %th Patient
+                %th Notes
+                %th
+              %th
+
+          %tbody
+            - for prescription in @prescriptions
+              %tr{ :class => cycle(:odd, :even) }
+                  %td= prescription.appointment
+                  %td= prescription.patient
+                  %td= prescription.notes
+                  %td
+                  = link_to edit_prescription_path(prescription), class: 'btn btn-outline-info btn-rounded' do
+                    %i.fas.fa-pen
+                %td
+                  = link_to prescription, :confirm => 'Are you sure?', :method => :delete, class: 'btn btn-outline-danger btn-rounded' do
+                    %i.fas.fa-trash

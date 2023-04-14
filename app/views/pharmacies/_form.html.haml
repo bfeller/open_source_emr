@@ -1,0 +1,23 @@
+/ end page title
+.row
+  .col-12
+    .card
+      .card-body
+        = form_for @pharmacy, class: 'form-horizontal' do |f|
+          .mb-3
+            = f.label :name, class: 'form-label'
+            = f.text_field :name, class: 'form-control'
+          .mb-3
+            = f.label :address, class: 'form-label'
+            = f.text_field :address, class: 'form-control'
+          .mb-3
+            = f.label :phone, class: 'form-label'
+            = f.text_field :phone, class: 'form-control'
+          .mb-3
+            = f.label :email, class: 'form-label'
+            = f.text_field :email, class: 'form-control'
+          .mb-3
+            = f.label :notes, class: 'form-label'
+            = f.rich_text_area :notes, class: 'form-control'
+          .mb-3
+            = f.submit "Save", class: 'btn btn-success btn-block'

@@ -1,0 +1,21 @@
+
+.auth-content
+  .card
+    .card-body.text-center
+      .mb-4
+        %img.brand{:alt => "bootstraper logo", :src => image_path("logo.png")}/
+      %h6.mb-4.text-muted Login to your account
+      = form_for resource, as: resource_name, url: session_path(resource_name), data: {turbo: false} do |f|
+        .mb-3.text-start
+          %label.form-label{:for => "email"} Email adress
+          = f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control', placeholder: "Enter Email"
+        .mb-3.text-start
+          %label.form-label{:for => "password"} Password
+          = f.password_field :password, autocomplete: "current-password", class: 'form-control', placeholder: "Enter Password"
+        - if devise_mapping.rememberable?
+          .mb-3.text-start
+            .form-check
+              = f.check_box :remember_me, class: 'form-check-input', id: 'check1'
+              = f.label :remember_me, class: 'form-check-label', for: 'check1'
+        = f.submit "Login", class: 'btn btn-primary shadow-2 mb-4'
+      = render "devise/shared/links"

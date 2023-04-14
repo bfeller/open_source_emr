@@ -1,0 +1,29 @@
+/ end page title
+.row
+  .col-12
+    .card
+      .card-body
+        = form_for @patient, class: 'form-horizontal' do |f|
+          .mb-3
+            = f.label :full_name, class: 'form-label'
+            = f.text_field :full_name, class: 'form-control'
+          .mb-3
+            = f.label :dob, class: 'form-label'
+            = f.date_field :dob, class: 'form-control'
+          .mb-3
+            %label.form-label Clinician
+            = f.collection_select :user_id, User.all, :id, :email, {include_blank: true}, {class: 'form-control select2'}
+          .mb-3
+            = f.label :gender, class: 'form-label'
+            = f.text_field :gender, class: 'form-control'
+          .mb-3
+            = f.label :health_card, class: 'form-label'
+            = f.text_field :health_card, class: 'form-control'
+          .mb-3
+            = f.label :version_code, class: 'form-label'
+            = f.text_field :version_code, class: 'form-control'
+          .mb-3
+            = f.label :notes, class: 'form-label'
+            = f.text_area :notes, class: 'form-control'
+          .mb-3
+            = f.submit "Save", class: 'btn btn-primary btn-block'

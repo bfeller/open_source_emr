@@ -1,0 +1,14 @@
+!!!
+%html{:lang => "en"}
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %meta{:charset => "utf-8"}/
+    %meta{:content => "width=device-width, initial-scale=1, shrink-to-fit=no", :name => "viewport"}/
+    %meta{:content => "IE=edge", "http-equiv" => "X-UA-Compatible"}/
+    %title EMR Template
+    %script{:crossorigin => "anonymous", :src => "https://kit.fontawesome.com/d60e922cc5.js"}
+    = stylesheet_link_tag "auth", "data-turbo-track": "reload"
+    = javascript_importmap_tags
+  %body
+    .wrapper
+      = yield

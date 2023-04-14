@@ -20,6 +20,7 @@ The only thing you should need to do to get started is to run the following comm
     rails s
 
 
+
 ## Seed User
 
 The application is initaized with a seed admin user.

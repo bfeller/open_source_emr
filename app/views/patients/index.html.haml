@@ -10,22 +10,6 @@
   .col-12
     .box.box-primary
       .box-body
-        %table.table.table-hover
-          %thead
-            %tr
-              %th Full name
-              %th Dob
-              %th
-              %th
-
-          %tbody
-            - for patient in @patients
-              %tr{ :class => cycle(:odd, :even) }
-                %td= patient.full_name
-                %td= dateify(patient.dob)
-                %td
-                  = link_to edit_patient_path(patient), class: 'btn btn-outline-info btn-rounded' do
-                    %i.fas.fa-pen
-                %td
-                  = link_to patient, :confirm => 'Are you sure?', data: { "turbo-method": :delete }, class: 'btn btn-outline-danger btn-rounded' do
-                    %i.fas.fa-trash
+        = form_with(url: patients_path, method: :get, data: { controller: "form-submission", turbo_frame: "patients", turbo_action: "advance" }) do |f|
+          = f.text_field :query, class: 'form-control', value: params[:query], placeholder: 'Search by patient name', data: { action: "input->form-submission#search" }
+        = render partial: 'patients', locals: { patients: @patients }

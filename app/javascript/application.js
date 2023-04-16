@@ -5,5 +5,7 @@ import "jquery"
 import "./select2"
 import "./main"
 
+
 import "trix"
 import "@rails/actiontext"
+import "controllers"

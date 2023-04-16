@@ -4,7 +4,16 @@ class PatientsController < ApplicationController
 
   # GET /patients
   def index
-    @patients = Patient.all
+    if params[:query].present?
+      @patients = Patient.where("full_name ILIKE ?", "%#{params[:query]}%")
+    else
+      @patients = Patient.all.limit(40)
+    end
+    if turbo_frame_request?
+      render partial: "patients", locals: { players: @patients }
+    else
+      render "index"
+    end
   end
 
   # GET /patients/1
@@ -42,8 +51,12 @@ class PatientsController < ApplicationController
 
   # DELETE /patients/1
   def destroy
+    pid = @patient.id
     @patient.destroy
-    redirect_to patients_url, notice: 'Patient was successfully destroyed.'
+    respond_to do |format|
+      format.turbo_stream { render turbo_stream: turbo_stream.remove("#{pid}_patient") }
+      format.html { redirect_to patients_url, notice: 'Patient was successfully destroyed.' }
+    end
   end
 
   private

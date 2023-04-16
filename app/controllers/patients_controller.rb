@@ -4,16 +4,12 @@ class PatientsController < ApplicationController
 
   # GET /patients
   def index
-    if params[:query].present?
-      @patients = Patient.where("full_name ILIKE ?", "%#{params[:query]}%")
-    else
-      @patients = Patient.all.limit(40)
-    end
-    if turbo_frame_request?
-      render partial: "patients", locals: { players: @patients }
-    else
-      render "index"
-    end
+    @patients = Patient.all.limit(40)
+  end
+
+  def search
+    @patients = Patient.where("full_name ILIKE ?", "%#{params[:query]}%")
+    render layout: false
   end
 
   # GET /patients/1

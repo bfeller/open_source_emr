@@ -10,6 +10,25 @@
   .col-12
     .box.box-primary
       .box-body
-        = form_with(url: patients_path, method: :get, data: { controller: "form-submission", turbo_frame: "patients", turbo_action: "advance" }) do |f|
-          = f.text_field :query, class: 'form-control', value: params[:query], placeholder: 'Search by patient name', data: { action: "input->form-submission#search" }
-        = render partial: 'patients', locals: { patients: @patients }
+        %input#patient_search.form-control{type: "text", placeholder: "Search patients by name"}
+        #patient_search_list
+          %table.table.table-hover
+            %thead
+              %tr
+                %th Full name
+                %th Clinician
+                %th{colspan: 2, width: '10%'}
+
+            %tbody
+              - for patient in @patients
+                %tr{id: "#{patient.id}_patient"}
+                  %td= patient.full_name
+                  %td
+                    - unless patient.user.nil?
+                      = patient.user.full_name
+                  %td
+                    = link_to edit_patient_path(patient), class: 'btn btn-outline-info btn-rounded' do
+                      %i.fas.fa-pen
+                  %td
+                    = button_to patient, method: :delete, class: 'btn btn-outline-danger btn-rounded' do
+                      %i.fas.fa-trash

@@ -1,0 +1,21 @@
+
+%table.table.table-hover
+  %thead
+    %tr
+      %th Full name
+      %th Clinician
+      %th{colspan: 2, width: '10%'}
+
+  %tbody
+    - for patient in @patients
+      %tr{id: "#{patient.id}_patient"}
+        %td= patient.full_name
+        %td
+          - unless patient.user.nil?
+            = patient.user.full_name
+        %td
+          = link_to edit_patient_path(patient), class: 'btn btn-outline-info btn-rounded' do
+            %i.fas.fa-pen
+        %td
+          = button_to patient, method: :delete, class: 'btn btn-outline-danger btn-rounded' do
+            %i.fas.fa-trash

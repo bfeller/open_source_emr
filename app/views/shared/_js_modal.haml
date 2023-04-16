@@ -1,0 +1,16 @@
+.custom_modal
+  .modal_card
+    .card
+      .card-header
+        %h3.card-title
+          %i.fas.fa-calendar-plus
+          Add Event
+        .card-options
+          %a{href: "#", class: "card-options-remove", onclick: "$('.custom_modal').fadeOut();"}
+            %i.fas.fa-times
+      - if defined?(id_key)
+        .card-body.js_card_modal_body{id: id_key}
+      - else
+        .card-body.js_card_modal_body
+          Testing Things
+      

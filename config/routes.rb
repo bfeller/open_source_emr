@@ -3,11 +3,13 @@ Rails.application.routes.draw do
   resources :treatments
   resources :prescriptions
   resources :appointments
+  get 'calendar_columns', to: 'appointments#calendar_columns'
   resources :patient_contacts
   resources :diagnoses
   resources :patient_pharmacies, only: [:create, :destroy, :update]
   resources :pharmacies
   resources :patients
+  get 'patients_search', to: 'patients#search'
   resources :manage_users, except: [:show]
   devise_for :users
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

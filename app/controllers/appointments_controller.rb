@@ -7,6 +7,12 @@ class AppointmentsController < ApplicationController
     @appointments = Appointment.all
   end
 
+  def calendar_columns
+    @users = User.all
+    respond_to do |format|
+      format.json { render :calendar_columns }
+    end
+  end
   # GET /appointments/1
   def show
   end
@@ -25,7 +31,7 @@ class AppointmentsController < ApplicationController
     @appointment = Appointment.new(appointment_params)
 
     if @appointment.save
-      redirect_to appointments_url, notice: 'Appointment was successfully created.'
+      redirect_to calendar_path, notice: 'Appointment was successfully created.'
     else
       render :new
     end
@@ -34,7 +40,7 @@ class AppointmentsController < ApplicationController
   # PATCH/PUT /appointments/1
   def update
     if @appointment.update(appointment_params)
-      redirect_back fallback_location: root_path, notice: 'Appointment was successfully updated.'
+      redirect_to calendar_path, notice: 'Appointment was successfully updated.'
     else
       render :edit
     end

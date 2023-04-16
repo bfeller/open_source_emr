@@ -10,6 +10,7 @@
     %script{:crossorigin => "anonymous", :src => "https://kit.fontawesome.com/d60e922cc5.js"}
     = stylesheet_link_tag "application", "data-turbo-track": "reload"
     = javascript_importmap_tags
+    = javascript_include_tag
   %body
     .wrapper
       = render partial: 'shared/sidebar'
@@ -30,3 +31,4 @@
                 %strong= flash[:error]
 
             = yield
+    = yield :custom_modals

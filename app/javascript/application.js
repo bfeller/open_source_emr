@@ -2,7 +2,6 @@
 import "@hotwired/turbo-rails"
 import "bootstrap"
 import "jquery"
-import "./select2"
 import "./main"
 
 

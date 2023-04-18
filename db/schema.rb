@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_14_070052) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_18_173654) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -72,10 +72,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_14_070052) do
 
   create_table "notes", force: :cascade do |t|
     t.bigint "appointment_id", null: false
-    t.bigint "treatment_id", null: false
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "treatment_id"
     t.index ["appointment_id"], name: "index_notes_on_appointment_id"
     t.index ["treatment_id"], name: "index_notes_on_treatment_id"
     t.index ["user_id"], name: "index_notes_on_user_id"
@@ -131,14 +131,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_14_070052) do
   create_table "prescriptions", force: :cascade do |t|
     t.bigint "appointment_id"
     t.bigint "patient_id", null: false
-    t.bigint "diagnosis_id", null: false
     t.bigint "user_id", null: false
     t.text "notes"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "name"
+    t.string "dosage"
+    t.string "frequency"
+    t.bigint "treatment_id"
     t.index ["appointment_id"], name: "index_prescriptions_on_appointment_id"
-    t.index ["diagnosis_id"], name: "index_prescriptions_on_diagnosis_id"
     t.index ["patient_id"], name: "index_prescriptions_on_patient_id"
+    t.index ["treatment_id"], name: "index_prescriptions_on_treatment_id"
     t.index ["user_id"], name: "index_prescriptions_on_user_id"
   end
 
@@ -182,8 +185,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_14_070052) do
   add_foreign_key "patient_pharmacies", "pharmacies"
   add_foreign_key "patients", "users"
   add_foreign_key "prescriptions", "appointments"
-  add_foreign_key "prescriptions", "diagnoses"
   add_foreign_key "prescriptions", "patients"
+  add_foreign_key "prescriptions", "treatments"
   add_foreign_key "prescriptions", "users"
   add_foreign_key "treatments", "appointments"
   add_foreign_key "treatments", "diagnoses"

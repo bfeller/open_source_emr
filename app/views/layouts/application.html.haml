@@ -8,9 +8,12 @@
     %title EMR Template
     = csrf_meta_tags
     %script{:crossorigin => "anonymous", :src => "https://kit.fontawesome.com/d60e922cc5.js"}
+    %link{:href => "https://cdn.skypack.dev/trix/dist/trix.css", :rel => "stylesheet"}/
+    %script{:type => "module"}
+      import railsActiontext from 'https://cdn.skypack.dev/@rails/actiontext';
+      import trix from 'https://cdn.skypack.dev/trix';
+
     = stylesheet_link_tag "application", "data-turbo-track": "reload"
-    = javascript_importmap_tags
-    = javascript_include_tag
   %body
     .wrapper
       = render partial: 'shared/sidebar'
@@ -31,4 +34,5 @@
                 %strong= flash[:error]
 
             = yield
+    = javascript_include_tag 'application', 'data-turbo-track': 'reload'
     = yield :custom_modals

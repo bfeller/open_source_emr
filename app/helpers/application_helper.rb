@@ -2,6 +2,8 @@ module ApplicationHelper
 
 
   def dateify(date)
-    date.strftime("%b %d, %Y")
+    unless date.nil?
+      date.strftime("%b %d, %Y")
+    end
   end
 end

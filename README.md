@@ -9,6 +9,8 @@ I'm not a doctor, or a medical professional. I do make software for the medical 
 
 Also, don't go trying to use this for your own practice out of the box. This is a template and you will need to customize it to your needs. I'm not responsible for any issues you may have with this software.
 
+There is also tables for adding pharamcies to patients if you want to implement some sort of integration with a pharmacy.
+
 ## Getting Started
 
 The only thing you should need to do to get started is to run the following commands (if you already have a ruby environment setup):

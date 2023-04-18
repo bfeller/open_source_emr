@@ -2,32 +2,15 @@ class PatientContactsController < ApplicationController
   before_action :set_patient_contact, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
 
-  # GET /patient_contacts
-  def index
-    @patient_contacts = PatientContact.all
-  end
-
-  # GET /patient_contacts/1
-  def show
-  end
-
-  # GET /patient_contacts/new
-  def new
-    @patient_contact = PatientContact.new
-  end
-
-  # GET /patient_contacts/1/edit
-  def edit
-  end
-
   # POST /patient_contacts
   def create
     @patient_contact = PatientContact.new(patient_contact_params)
 
     if @patient_contact.save
-      redirect_to patient_contacts_url, notice: 'Patient contact was successfully created.'
+      redirect_back fallback_location: root_path, notice: 'Patient contact was successfully created.'
     else
-      render :new
+      flash[:error] = @patient_contact.errors.full_messages.join(", ")
+      redirect_back fallback_location: root_path
     end
   end
 
@@ -36,7 +19,8 @@ class PatientContactsController < ApplicationController
     if @patient_contact.update(patient_contact_params)
       redirect_back fallback_location: root_path, notice: 'Patient contact was successfully updated.'
     else
-      render :edit
+      flash[:error] = @patient_contact.errors.full_messages.join(", ")
+      redirect_back fallback_location: root_path
     end
   end
 

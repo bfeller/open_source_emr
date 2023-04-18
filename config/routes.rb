@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
-  resources :notes
-  resources :treatments
-  resources :prescriptions
+  resources :notes, only: [:create, :destroy, :update]
+  resources :treatments, only: [:create, :destroy, :update]
+  resources :prescriptions, only: [:create, :destroy, :update]
   resources :appointments
   get 'calendar_columns', to: 'appointments#calendar_columns'
   resources :patient_contacts

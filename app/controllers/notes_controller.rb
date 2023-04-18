@@ -2,41 +2,25 @@ class NotesController < ApplicationController
   before_action :set_note, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
 
-  # GET /notes
-  def index
-    @notes = Note.all
-  end
-
-  # GET /notes/1
-  def show
-  end
-
-  # GET /notes/new
-  def new
-    @note = Note.new
-  end
-
-  # GET /notes/1/edit
-  def edit
-  end
-
   # POST /notes
   def create
     @note = Note.new(note_params)
 
     if @note.save
-      redirect_to notes_url, notice: 'Note was successfully created.'
+      redirect_back fallback_location: notes_url, notice: 'Note was successfully created.'
     else
-      render :new
+      flash[:error] = @note.errors.full_messages.to_sentence
+      redirect_back fallback_location: notes_url
     end
   end
 
   # PATCH/PUT /notes/1
   def update
     if @note.update(note_params)
-      redirect_back fallback_location: root_path, notice: 'Note was successfully updated.'
+      redirect_back fallback_location: notes_url, notice: 'Note was successfully updated.'
     else
-      render :edit
+      flash[:error] = @note.errors.full_messages.to_sentence
+      redirect_back fallback_location: notes_url
     end
   end
 

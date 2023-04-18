@@ -12,15 +12,15 @@
         %table.table.table-hover
           %thead
             %tr
-                %th Name
-                %th
+              %th Name
               %th
+            %th
 
           %tbody
             - for diagnosis in @diagnoses
               %tr{ :class => cycle(:odd, :even) }
-                  %td= diagnosis.name
-                  %td
+                %td= diagnosis.name
+                %td
                   = link_to edit_diagnosis_path(diagnosis), class: 'btn btn-outline-info btn-rounded' do
                     %i.fas.fa-pen
                 %td

@@ -2,32 +2,15 @@ class TreatmentsController < ApplicationController
   before_action :set_treatment, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
 
-  # GET /treatments
-  def index
-    @treatments = Treatment.all
-  end
-
-  # GET /treatments/1
-  def show
-  end
-
-  # GET /treatments/new
-  def new
-    @treatment = Treatment.new
-  end
-
-  # GET /treatments/1/edit
-  def edit
-  end
-
   # POST /treatments
   def create
     @treatment = Treatment.new(treatment_params)
 
     if @treatment.save
-      redirect_to treatments_url, notice: 'Treatment was successfully created.'
+      redirect_to appointment_path(@treatment.appointment), notice: 'Treatment was successfully created.'
     else
-      render :new
+      flash[:error] = @treatment.errors.full_messages.to_sentence
+      redirect_back fallback_location: treatments_url
     end
   end
 
@@ -36,7 +19,8 @@ class TreatmentsController < ApplicationController
     if @treatment.update(treatment_params)
       redirect_back fallback_location: root_path, notice: 'Treatment was successfully updated.'
     else
-      render :edit
+      flash[:error] = @treatment.errors.full_messages.to_sentence
+      redirect_back fallback_location: treatments_url
     end
   end
 

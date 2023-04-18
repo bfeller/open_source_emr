@@ -2,3 +2,42 @@
   Editing Patient
 
 = render 'form', save_text: "Save Changes"
+.row
+  .col-lg-6
+    .card
+      .card-header
+        Contact Info
+        %button.btn.btn-primary.btn-sm.float-end{type: "button", "data-bs-toggle" => "collapse", "data-bs-target" => "#new_contact_form", "aria-expanded" => "false", "aria-controls" => "new_contact_form"}
+          %i.fas.fa-plus
+      .card-body
+        .collapse{ id: "new_contact_form" }
+          = render partial: "patient_contacts/form", locals: {patient_contact: PatientContact.new, patient_id: @patient.id}
+        - if @patient.patient_contacts.any?
+          - @patient.patient_contacts.each do |patient_contact|
+            .border-top.my-3
+            %h5= patient_contact.name
+            = render partial: "patient_contacts/form", locals: {patient_contact: patient_contact}
+        - else
+          %p No contacts found.
+  .col-lg-6
+    .card
+      .card-header
+        Appointments
+      .card-body
+        %table.table
+          - if @patient.appointments.any?
+            %thead
+              %tr
+                %th Date
+                %th{colspan: 2}
+            %tbody
+              - @patient.appointments.each do |appointment|
+                %tr
+                  %td= dateify(appointment.start_time)
+                  %td
+                    = link_to edit_appointment_path(appointment), class: "btn btn-outline-primary btn-rounded" do
+                      %i.fas.fa-pencil
+                  %td
+                    = link_to appointment_path(appointment), class: 'btn btn-outline-success btn-rounded' do
+                      %i.fas.fa-eye
+            

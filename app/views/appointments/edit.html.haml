@@ -1,8 +1,14 @@
 .page-title
   %h3 
     Editing Appointment
-    = link_to appointments_path, class: 'btn btn-sm btn-outline-primary float-end' do
+    = link_to calendar_path, class: 'btn btn-sm btn-outline-primary float-end' do
       %i.fas.fa-arrow-left
       %span Back
+    = link_to @appointment, class: 'btn btn-sm btn-outline-success float-end me-2' do
+      %i.fas.fa-eye
+      %span View
+    = link_to @appointment, method: :delete, class: 'btn btn-sm btn-outline-danger float-end me-2', data: { confirm: 'This will also delete everything attached to this appointment, including prescriptions and treatments.' } do
+      %i.fas.fa-trash
+      %span Delete Appointment
 
 = render 'form'

@@ -1,0 +1,226 @@
+.page-title
+  %h3 
+    Appointment -
+    %span= dateify(@appointment.start_time)
+    = link_to edit_appointment_path(@appointment), class: 'btn btn-sm btn-outline-primary float-end' do
+      %i.fas.fa-pencil
+      %span Edit Appointment
+    %span.float-end.p-3
+    = link_to @appointment, method: :delete, class: 'btn btn-sm btn-outline-danger float-end mr-3', data: { confirm: 'This will also delete everything attached to this appointment, including prescriptions and treatments.' } do
+      %i.fas.fa-trash
+      %span Delete Appointment
+.row
+  .col-12
+    .card
+      .card-body
+        %ul#pills-tab.nav.nav-pills.mb-3{:role => "tablist"}
+          %li.nav-item
+            %a#pills-client-tab.nav-link.active{"aria-controls" => "pills-client", "aria-selected" => "false", "data-bs-toggle" => "pill", :href => "#pills-client", :role => "tab"} Client
+          %li.nav-item
+            %a#pills-notes-tab.nav-link{"aria-controls" => "pills-notes", "aria-selected" => "true", "data-bs-toggle" => "pill", :href => "#pills-notes", :role => "tab"} General Notes
+          - @appointment.treatments.each do |t|
+            %li.nav-item
+              %a.nav-link{id: "pills-treatment-#{t.id}-tab", "aria-controls" => "pills-treatment-#{t.id}", "aria-selected" => "false", "data-bs-toggle" => "pill", :href => "#pills-treatment-#{t.id}", :role => "tab"}= t.name
+          %li.nav-item
+            %a#pills-new_treatment-tab.nav-link{"aria-controls" => "pills-new_treatment", "aria-selected" => "false", "data-bs-toggle" => "pill", :href => "#pills-new_treatment", :role => "tab"}
+              .fas.fa-plus
+        #pills-tabContent.tab-content
+          #pills-client.tab-pane.fade.active.show{"aria-labelledby" => "pills-client-tab", :role => "tabpanel"} 
+            .row
+              .col-lg-4
+                %h5 Patient Info
+                %p= @appointment.patient.full_name
+                %p= @appointment.patient.gender
+                %p= dateify(@appointment.patient.dob)
+                = link_to "Edit Patient Info", edit_patient_path(@appointment.patient), class: "btn btn-sm btn-outline-primary"
+                .border-top.my-3
+                %h5.mb-2 At Glance Prescriptions
+                - @appointment.patient.prescriptions.order(created_at: :desc).each do |p|
+                  .card.mt-3
+                    .card-header
+                      = dateify(p.created_at)
+                    .card-body
+                      %p= p.name
+                      %p= p.dosage
+                      %p= p.frequency
+                      %p= p.notes
+                      %p= p.user.full_name
+              .col-lg-8
+                %h5.mb-3 Appointment History
+                - @appointment.patient.appointments.order(start_time: :desc).each do |a|
+                  - unless a.id == @appointment.id
+                    .border-top.my-3
+                    %button.btn.btn-sm.btn-outline-primary.mb-2{type: "button", "data-bs-toggle" => "collapse", "data-bs-target" => "#history_appointment_#{a.id}", "aria-expanded" => "false", "aria-controls" => "history_appointment_#{a.id}"}
+                      = dateify(a.start_time)
+                    = link_to "Go To Appointment", appointment_path(a), class: "btn btn-sm btn-outline-primary float-end"
+                    .collapse{id: "history_appointment_#{a.id}"}
+                      - unless a.treatments.empty?
+                        %p 
+                          %strong Treatments
+                        - a.treatments.each do |t|
+                          .card
+                            .card-header
+                              %span= t.name
+                              %span= t.diagnosis.name
+                            .card-body
+                              - unless t.prescriptions.empty?
+                                %p 
+                                  %strong Prescriptions
+                                %table.table
+                                  %tr
+                                    %th Name
+                                    %th Dosage
+                                    %th Frequency
+                                    %th Notes
+                                  - t.prescriptions.each do |p|
+                                    %tr
+                                      %td= p.name
+                                      %td= p.dosage
+                                      %td= p.frequency
+                                      %td= p.notes
+                              - unless t.notes.empty?
+                                %p 
+                                  %strong Notes
+                                - a.notes.each do |n|
+                                  .card
+                                    .card-header
+                                      %span= n.user.full_name
+                                      %span= dateify(n.created_at)
+                                      - unless n.treatment.nil?
+                                        %span= n.treatment.name
+                                    .card-body
+                                      %p= n.body
+                      - unless a.notes.where("treatment_id IS NULL").empty?
+                        %p 
+                          %strong General Notes
+                        - a.notes.each do |n|
+                          .card
+                            .card-header
+                              %span= n.user.full_name
+                              %span= dateify(n.created_at)
+                              - unless n.treatment.nil?
+                                %span= n.treatment.name
+                            .card-body
+                              %p= n.body
+
+          #pills-notes.tab-pane.fade{"aria-labelledby" => "pills-notes-tab", :role => "tabpanel"}
+            %h5.mb-3 Notes
+            .card
+              .card-body
+                = form_for @note do |f|
+                  = f.hidden_field :appointment_id, value: @appointment.id
+                  = f.hidden_field :user_id, value: current_user.id
+                  = f.rich_text_area :body, class: "form-control", rows: 3
+                  = f.submit "Add Note", class: "btn btn-sm btn-outline-primary mt-3"
+            - @appointment.notes.where("treatment_id IS NULL").order(created_at: :desc).each do |n|
+              .card
+                .card-header
+                  %span= n.user.full_name
+                  %span= dateify(n.created_at)
+                  - if n.treatment_id != nil
+                    %span= n.treatment.name
+                .card-body
+                  .note_show_box{id: "note_show_box_#{n.id}"}
+                    = n.body
+                    %button.btn.btn-sm.btn-outline-primary.float-end{onclick: "toggle_edit_note('#{n.id}')"} Edit
+                  .note_edit_box.hide_me{id: "note_edit_box_#{n.id}"}
+                    = form_for n do |f|
+                      = f.rich_text_area :body, class: "form-control", rows: 3
+                      = f.submit "Update Note", class: "btn btn-sm btn-outline-primary mt-3"
+                      = link_to "Cancel", "#", class: "btn btn-sm btn-outline-secondary mt-3", onclick: "toggle_edit_note('#{n.id}')"
+                      = link_to "Delete", note_path(n), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-sm btn-outline-danger mt-3"
+                  
+          - @appointment.treatments.each do |t|
+            .tab-pane.fade{id: "pills-treatment-#{t.id}", "aria-labelledby" => "pills-treatment-tab", :role => "tabpanel"} 
+              .row
+                %h5
+                  = t.name
+                  %span &mdash;
+                  %span= t.diagnosis.name
+                  %button.btn.btn-sm.btn-outline-primary.float-end{type: "button", "data-bs-toggle" => "collapse", "data-bs-target" => "#treatment_edit_#{t.id}", "aria-expanded" => "false", "aria-controls" => "treatment_edit_#{t.id}"}
+                    .fas.fa-edit
+                .collapse{id: "treatment_edit_#{t.id}"}
+                  = form_for t do |f|
+                    = f.select :diagnosis_id, @diagnoses.collect {|d| [d.name, d.id]}, {}, class: "form-select mb-3 select2", "data-select2-id" => t.id, style: "width:100%"
+                    = f.text_field :name, class: "form-control mb-3 mt-3", placeholder: "Treatment Name"
+                    = f.submit "Update Treatment", class: "btn btn-sm btn-outline-primary"
+                .border-top.my-3
+
+                .col-lg-6
+                  .card
+                    .card-header
+                      Notes
+                      %button.btn.btn-sm.btn-outline-primary.float-end{type: "button", "data-bs-toggle" => "collapse", "data-bs-target" => "#treatment_notes_#{t.id}", "aria-expanded" => "false", "aria-controls" => "treatment_notes_#{t.id}"}
+                        .fas.fa-plus
+                    .card-body
+                      .collapse.treatment_notes{id: "treatment_notes_#{t.id}"}
+                        = form_for @note do |f|
+                          = f.hidden_field :treatment_id, value: t.id
+                          = f.hidden_field :appointment_id, value: @appointment.id
+                          = f.hidden_field :user_id, value: current_user.id
+                          = f.rich_text_area :body, class: "form-control", rows: 3
+                          = f.submit "Create", class: "btn btn-sm btn-outline-primary mt-3"
+                        .border-top.my-3
+                      - t.notes.order(created_at: :desc).each do |n|
+                        .card
+                          .card-header
+                            %span= n.user.full_name
+                            %span= dateify(n.created_at)
+                          .card-body
+                            .note_show_box{id: "note_show_box_#{n.id}t"}
+                              = n.body
+                              %button.mt-3.btn.btn-sm.btn-outline-primary.float-end{onclick: "toggle_edit_note('#{n.id}t')"} Edit
+                            .note_edit_box.hide_me{id: "note_edit_box_#{n.id}t"}
+                              = form_for n do |f|
+                                = f.rich_text_area :body, class: "form-control", rows: 3
+                                = f.submit "Update Note", class: "btn btn-sm btn-outline-primary mt-3"
+                                = link_to "Cancel", "#", class: "btn btn-sm btn-outline-secondary mt-3", onclick: "toggle_edit_note('#{n.id}t')"
+                                = link_to "Delete", note_path(n), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-sm btn-outline-danger mt-3"
+                .col-lg-6
+                  .card
+                    .card-header
+                      Prescriptions
+                      %button.btn.btn-sm.btn-outline-primary.float-end{type: "button", "data-bs-toggle" => "collapse", "data-bs-target" => "#treatment_pres_#{t.id}", "aria-expanded" => "false", "aria-controls" => "treatment_pres_#{t.id}"}
+                        .fas.fa-plus
+                    .card-body
+                      .collapse{id: "treatment_pres_#{t.id}"}
+                        = form_for @prescription do |f|
+                          = f.hidden_field :treatment_id, value: t.id
+                          = f.hidden_field :patient_id, value: @appointment.patient.id
+                          = f.hidden_field :user_id, value: current_user.id
+                          = f.text_field :name, class: "form-control mb-3", placeholder: "Name"
+                          = f.text_field :dosage, class: "form-control mb-3", placeholder: "Dosage"
+                          = f.text_field :frequency, class: "form-control mb-3", placeholder: "Frequency"
+                          = f.text_field :notes, class: "form-control mb-3", placeholder: "Notes"
+                          = f.submit "Create", class: "btn btn-sm btn-outline-primary"
+                        .border-top.my-3
+                      %table.table
+                        %tr
+                          %th Name
+                          %th Dosage
+                          %th Frequency
+                          %th Notes
+                          %th
+                        - t.prescriptions.each do |p|
+                          %tr
+                            %td= p.name
+                            %td= p.dosage
+                            %td= p.frequency
+                            %td= p.notes
+                            %td
+                              = link_to "Delete", prescription_path(p), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-sm btn-outline-danger"
+          #pills-new_treatment.tab-pane.fade{"aria-labelledby" => "pills-treatment-tab", :role => "tabpanel"} 
+            %h5.mb-3 New Treatment
+            - if @diagnoses.empty?
+              .alert.alert-danger
+                Add diagnoses to the system first.
+                %p.mt-3
+                  = link_to "Add Diagnosis", new_diagnosis_path, class: "btn btn-sm btn-outline-primary"
+            - else
+              = form_for @treatment do |f|
+                = f.hidden_field :appointment_id, value: @appointment.id
+                = f.hidden_field :user_id, value: current_user.id
+                = f.hidden_field :patient_id, value: @appointment.patient.id
+                = f.select :diagnosis_id, @diagnoses.collect {|d| [d.name, d.id]}, {}, class: "form-control mb-3 select2", style: "width:100%;"
+                = f.text_field :name, class: "form-control mb-3 mt-3", placeholder: "Treatment Name"
+                = f.submit "Add Treatment", class: "btn btn-sm btn-outline-primary"

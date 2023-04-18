@@ -1,6 +1,9 @@
 //= require vendor/daypilot
-//= require vendor/jquery
+//= require jquery
+//= require jquery_ujs
 //= require vendor/select2
+//= require vendor/popper
+//= require vendor/bootstrap.bundle
 //= require defaults
 //= require calendar
 //= require patients

@@ -4,7 +4,11 @@ class AppointmentsController < ApplicationController
 
   # GET /appointments
   def index
-    @appointments = Appointment.all
+    if params[:start] && params[:end]
+      @appointments = Appointment.where(start_time: params[:start]..params[:end])
+    else
+      @appointments = Appointment.where(start_time: Date.today.beginning_of_day..Date.today.end_of_day)
+    end
   end
 
   def calendar_columns
@@ -15,6 +19,10 @@ class AppointmentsController < ApplicationController
   end
   # GET /appointments/1
   def show
+    @note = Note.new
+    @treatment = Treatment.new
+    @diagnoses = Diagnosis.all
+    @prescription = Prescription.new
   end
 
   # GET /appointments/new
@@ -40,7 +48,10 @@ class AppointmentsController < ApplicationController
   # PATCH/PUT /appointments/1
   def update
     if @appointment.update(appointment_params)
-      redirect_to calendar_path, notice: 'Appointment was successfully updated.'
+      respond_to do |format|
+        format.html { redirect_to calendar_path, notice: 'Appointment was successfully updated.' }
+        format.json { render :show, status: :ok, location: @appointment }
+      end
     else
       render :edit
     end
@@ -49,7 +60,7 @@ class AppointmentsController < ApplicationController
   # DELETE /appointments/1
   def destroy
     @appointment.destroy
-    redirect_back fallback_location: appointments_url, notice: 'Appointment was successfully destroyed.'
+    redirect_to calendar_path, notice: 'Appointment was successfully destroyed.'
   end
 
   private

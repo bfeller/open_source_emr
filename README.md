@@ -63,6 +63,8 @@ Tie prescriptions with drug listings, dosages, and other information for the pri
 
 * scaffold commands will automatically generate styling as you see it in the rest of the application.
 
+* I've also added ['chartkick'](https://chartkick.com/) for making pretty charts. Check out the documentation for more information.
+
 ## Things you will want to change before using in production:
 
 * Mailer setup (the mailer is not setup at all and will not work)
@@ -74,6 +76,8 @@ Tie prescriptions with drug listings, dosages, and other information for the pri
 * Replace 'logo.png' in the assets/images folder with your own logo
 
 * If you need document/file storage, you will need to set that up as well. I recommend using AWS S3. Check out the documentation for ActiveStorage for more information.
+
+* I have not built any reports, every business operates differently and you would just change them anyway. So don't forget to set those up for your use case.
 
 
 ## Acknowledgements

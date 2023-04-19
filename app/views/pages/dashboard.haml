@@ -1,257 +1,96 @@
-.row
-  .col-md-12.page-header
-    .page-pretitle Overview
-    %h2.page-title Dashboard
-.row
-  .col-sm-6.col-md-6.col-lg-3.mt-3
-    .card
-      .content
-        .row
-          .col-sm-4
-            .icon-big.text-center
-              %i.teal.fas.fa-shopping-cart
-          .col-sm-8
-            .detail
-              %p.detail-subtitle New Orders
-              %span.number 6,267
-        .footer
-          %hr/
-          .stats
-            %i.fas.fa-calendar
-            For this Week
-  .col-sm-6.col-md-6.col-lg-3.mt-3
-    .card
-      .content
-        .row
-          .col-sm-4
-            .icon-big.text-center
-              %i.olive.fas.fa-money-bill-alt
-          .col-sm-8
-            .detail
-              %p.detail-subtitle Revenue
-              %span.number $180,900
-        .footer
-          %hr/
-          .stats
-            %i.fas.fa-calendar
-            For this Month
-  .col-sm-6.col-md-6.col-lg-3.mt-3
-    .card
-      .content
-        .row
-          .col-sm-4
-            .icon-big.text-center
-              %i.violet.fas.fa-eye
-          .col-sm-8
-            .detail
-              %p.detail-subtitle Page views
-              %span.number 28,210
-        .footer
-          %hr/
-          .stats
-            %i.fas.fa-stopwatch
-            For this Month
-  .col-sm-6.col-md-6.col-lg-3.mt-3
-    .card
-      .content
-        .row
-          .col-sm-4
-            .icon-big.text-center
-              %i.orange.fas.fa-envelope
-          .col-sm-8
-            .detail
-              %p.detail-subtitle Support Request
-              %span.number 75
-        .footer
-          %hr/
-          .stats
-            %i.fas.fa-envelope-open-text
-            For this week
-.row
-  .col-md-12
-    .row
-      .col-md-6
-        .card
-          .content
-            .head
-              %h5.mb-0 Traffic Overview
-              %p.text-muted Current year website visitor data
-            .canvas-wrapper
-              %canvas#trafficflow.chart
-      .col-md-6
-        .card
-          .content
-            .head
-              %h5.mb-0 Sales Overview
-              %p.text-muted Current year sales data
-            .canvas-wrapper
-              %canvas#sales.chart
-  .col-md-6
-    .card
-      .content
-        .head
-          %h5.mb-0 Top Visitors by Country
-          %p.text-muted Current year website visitor data
-        .canvas-wrapper
-          %table.table.table-striped
-            %thead.success
-              %tr
-                %th Country
-                %th.text-end Unique Visitors
-            %tbody
-              %tr
-                %td
-                  %i.flag-icon.flag-icon-us
-                  United States
-                %td.text-end 27,340
-              %tr
-                %td
-                  %i.flag-icon.flag-icon-in
-                  India
-                %td.text-end 21,280
-              %tr
-                %td
-                  %i.flag-icon.flag-icon-jp
-                  Japan
-                %td.text-end 18,210
-              %tr
-                %td
-                  %i.flag-icon.flag-icon-gb
-                  United Kingdom
-                %td.text-end 15,176
-              %tr
-                %td
-                  %i.flag-icon.flag-icon-es
-                  Spain
-                %td.text-end 14,276
-              %tr
-                %td
-                  %i.flag-icon.flag-icon-de
-                  Germany
-                %td.text-end 13,176
-              %tr
-                %td
-                  %i.flag-icon.flag-icon-br
-                  Brazil
-                %td.text-end 12,176
-              %tr
-                %td
-                  %i.flag-icon.flag-icon-id
-                  Indonesia
-                %td.text-end 11,886
-              %tr
-                %td
-                  %i.flag-icon.flag-icon-ph
-                  Philippines
-                %td.text-end 11,509
-              %tr
-                %td
-                  %i.flag-icon.flag-icon-nz
-                  New Zealand
-                %td.text-end 1,700
-  .col-md-6
-    .card
-      .content
-        .head
-          %h5.mb-0 Most Visited Pages
-          %p.text-muted Current year website visitor data
-        .canvas-wrapper
-          %table.table.table-striped
-            %thead.success
-              %tr
-                %th Page Name
-                %th.text-end Visitors
-            %tbody
-              %tr
-                %td
-                  \/about.html
-                  %a{:href => "#"}
-                    %i.fas.fa-link.blue
-                %td.text-end 8,340
-              %tr
-                %td
-                  \/special-promo.html
-                  %a{:href => "#"}
-                    %i.fas.fa-link.blue
-                %td.text-end 7,280
-              %tr
-                %td
-                  \/products.html
-                  %a{:href => "#"}
-                    %i.fas.fa-link.blue
-                %td.text-end 6,210
-              %tr
-                %td
-                  \/documentation.html
-                  %a{:href => "#"}
-                    %i.fas.fa-link.blue
-                %td.text-end 5,176
-              %tr
-                %td
-                  \/customer-support.html
-                  %a{:href => "#"}
-                    %i.fas.fa-link.blue
-                %td.text-end 4,276
-              %tr
-                %td
-                  \/index.html
-                  %a{:href => "#"}
-                    %i.fas.fa-link.blue
-                %td.text-end 3,176
-              %tr
-                %td
-                  \/products-pricing.html
-                  %a{:href => "#"}
-                    %i.fas.fa-link.blue
-                %td.text-end 2,176
-              %tr
-                %td
-                  \/product-features.html
-                  %a{:href => "#"}
-                    %i.fas.fa-link.blue
-                %td.text-end 1,886
-              %tr
-                %td
-                  \/contact-us.html
-                  %a{:href => "#"}
-                    %i.fas.fa-link.blue
-                %td.text-end 1,509
-              %tr
-                %td
-                  \/terms-and-condition.html
-                  %a{:href => "#"}
-                    %i.fas.fa-link.blue
-                %td.text-end 1,100
-.row
-  .col-sm-6.col-md-6.col-lg-3
-    .card
-      .content
-        .row
-          .dfd.text-center
-            %i.blue.large-icon.mb-2.fas.fa-thumbs-up
-            %h4.mb-0 +21,900
-            %p.text-muted FACEBOOK PAGE LIKES
-  .col-sm-6.col-md-6.col-lg-3
-    .card
-      .content
-        .row
-          .dfd.text-center
-            %i.orange.large-icon.mb-2.fas.fa-reply-all
-            %h4.mb-0 +22,566
-            %p.text-muted INSTAGRAM FOLLOWERS
-  .col-sm-6.col-md-6.col-lg-3
-    .card
-      .content
-        .row
-          .dfd.text-center
-            %i.grey.large-icon.mb-2.fas.fa-envelope
-            %h4.mb-0 +15,566
-            %p.text-muted E-MAIL SUBSCRIBERS
-  .col-sm-6.col-md-6.col-lg-3
-    .card
-      .content
-        .row
-          .dfd.text-center
-            %i.olive.large-icon.mb-2.fas.fa-dollar-sign
-            %h4.mb-0 +98,601
-            %p.text-muted TOTAL SALES
+.dashboard_wrap
+  .row
+    .col-md-12.page-header
+      .page-pretitle Overview
+      %h2.page-title Dashboard
+  .row
+    .col-sm-6.col-md-6.col-lg-3.mt-3
+      .card
+        .content
+          .row
+            .col-sm-4
+              .icon-big.text-center
+                %i.teal.fas.fa-users
+            .col-sm-8
+              .detail
+                %p.detail-subtitle New Patients
+                %span.number= current_user.patients.where("created_at > ?", Date.today.beginning_of_month).count
+          .footer
+            %hr/
+            .stats
+              %i.fas.fa-calendar
+              For this Month
+    .col-sm-6.col-md-6.col-lg-3.mt-3
+      .card
+        .content
+          .row
+            .col-sm-4
+              .icon-big.text-center
+                %i.olive.fas.fa-users
+            .col-sm-8
+              .detail
+                %p.detail-subtitle New Patients
+                %span.number= current_user.patients.where("created_at > ? AND created_at < ?", (Date.today - 1.month).beginning_of_month, Date.today.beginning_of_month - 1.day).count
+          .footer
+            %hr/
+            .stats
+              %i.fas.fa-stopwatch
+              Last Month
+    .col-sm-6.col-md-6.col-lg-3.mt-3
+      .card
+        .content
+          .row
+            .col-sm-4
+              .icon-big.text-center
+                %i.violet.fas.fa-calendar
+            .col-sm-8
+              .detail
+                %p.detail-subtitle Appointments
+                %span.number= current_user.appointments.where("created_at > ?", Date.today.beginning_of_month).count
+          .footer
+            %hr/
+            .stats
+              %i.fas.fa-calendar
+              For this Month
+    .col-sm-6.col-md-6.col-lg-3.mt-3
+      .card
+        .content
+          .row
+            .col-sm-4
+              .icon-big.text-center
+                %i.orange.fas.fa-calendar
+            .col-sm-8
+              .detail
+                %p.detail-subtitle Appointments
+                %span.number= current_user.appointments.where("created_at > ? AND created_at < ?", (Date.today - 1.month).beginning_of_month, Date.today.beginning_of_month - 1.day).count
+          .footer
+            %hr/
+            .stats
+              %i.fas.fa-stopwatch
+              For last month
+  .row
+    .col-md-12
+      .row
+        .col-md-6
+          .card
+            .content
+              .head
+                %h5.mb-0 Next 5 Appointments
+                %p.text-muted Current year sales data
+              .appointment_wrapper
+                - current_user.appointments.where("created_at > ? AND created_at < ?", Time.now.beginning_of_day, Time.now + 30.minutes).limit(5).each do |a|
+                  .border-top.my-3
+                  .appointment_dash
+                    = link_to appointment_path(a), class: "appointment" do
+                      %h5
+                        %span= a.start_time.strftime("%I:%M %p - %b %d, %Y")
+                      .appointment_detail
+                        %span= a.patient.full_name
+        .col-md-6
+          .card
+            .content
+              .head
+                %h5.mb-0 Appointment Overview
+                %p.text-muted Appointments by Month
+              .canvas-wrapper
+                = column_chart current_user.appointments.group_by_month(:start_time, format: "%b %y").count

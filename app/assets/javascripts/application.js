@@ -4,6 +4,8 @@
 //= require vendor/select2
 //= require vendor/popper
 //= require vendor/bootstrap.bundle
+//= require chartkick
+//= require Chart.bundle
 //= require defaults
 //= require calendar
 //= require patients

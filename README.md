@@ -14,7 +14,7 @@ There is also tables for adding pharamcies to patients if you want to implement 
 
 ## Getting Started
 
-The only thing you should need to do to get started is to run the following commands (if you already have a ruby environment setup):
+The only thing you should need to do to get started is to run the following commands (if you already have postgres and a ruby environment setup https://cloud.google.com/ruby/docs/setup):
 
     bundle install
     rake db:create

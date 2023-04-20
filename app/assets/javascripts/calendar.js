@@ -9,7 +9,7 @@ $('.calendar_wrapper').ready(function() {
   };
 });
 function init_calendar(){
-  tdate = $('.cal_today_date').val();
+  var tdate = $('.cal_today_date').val();
   var dp = new DayPilot.Calendar("dp");
 
   // view

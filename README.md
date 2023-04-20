@@ -1,5 +1,6 @@
 # Open Source Electronic Medical Record Software
-IN PROGRESS - NOT FUNCTIONAL YET
+
+Not for commercial use. This is a template for a medical record system. It is not a complete system and is not intended to be used in production. This is a template for you to use to build your own system. I have built this system for my own use and I'm sharing it with the community in hopes that it will help someone else.
 
 To use this template you must have experience with Ruby on Rails. I attempted to try and keep everything done the "rails way" as possible to create the lowest barrier of entry for new developers. If you are not familiar with Ruby on Rails, I would recommend you start with the [Rails Guides](http://guides.rubyonrails.org/).
 

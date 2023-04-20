@@ -4,7 +4,8 @@
     .card
       .card-body
         = form_for patient_contact, class: 'form-horizontal' do |f|
-          = f.hidden_field :patient_id, value: patient_id
+          - if patient_contact.new_record?
+            = f.hidden_field :patient_id, value: patient_id
           .mb-3
             = f.label :name, class: 'form-label'
             = f.text_field :name, class: 'form-control'

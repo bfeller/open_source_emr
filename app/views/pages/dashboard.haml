@@ -46,7 +46,7 @@
             .col-sm-8
               .detail
                 %p.detail-subtitle Appointments
-                %span.number= current_user.appointments.where("created_at > ?", Date.today.beginning_of_month).count
+                %span.number= current_user.appointments.where("start_time > ?", Date.today.beginning_of_month).count
           .footer
             %hr/
             .stats
@@ -62,7 +62,7 @@
             .col-sm-8
               .detail
                 %p.detail-subtitle Appointments
-                %span.number= current_user.appointments.where("created_at > ? AND created_at < ?", (Date.today - 1.month).beginning_of_month, Date.today.beginning_of_month - 1.day).count
+                %span.number= current_user.appointments.where("start_time > ? AND start_time < ?", (Date.today - 1.month).beginning_of_month, Date.today.beginning_of_month - 1.day).count
           .footer
             %hr/
             .stats

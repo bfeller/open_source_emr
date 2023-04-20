@@ -1,6 +1,6 @@
 # Open Source Electronic Medical Record Software
 
-Not for commercial use. This is a template for a medical record system. It is not a complete system and is not intended to be used in production. This is a template for you to use to build your own system. I have built this system for my own use and I'm sharing it with the community in hopes that it will help someone else.
+Not for commercial use. This is a template for a medical record system. It is not a complete system and is not intended to be used in production. This is a template for you to use to build your own system.
 
 To use this template you must have experience with Ruby on Rails. I attempted to try and keep everything done the "rails way" as possible to create the lowest barrier of entry for new developers. If you are not familiar with Ruby on Rails, I would recommend you start with the [Rails Guides](http://guides.rubyonrails.org/).
 
@@ -79,6 +79,8 @@ Tie prescriptions with drug listings, dosages, and other information for the pri
 * If you need document/file storage, you will need to set that up as well. I recommend using AWS S3. Check out the documentation for ActiveStorage for more information.
 
 * I have not built any reports, every business operates differently and you would just change them anyway. So don't forget to set those up for your use case.
+
+* add legal pages (privacy policy, terms of service, etc)
 
 
 ## Acknowledgements

@@ -78,7 +78,7 @@
                 %h5.mb-0 Next 5 Appointments
                 %p.text-muted Current year sales data
               .appointment_wrapper
-                - current_user.appointments.where("created_at > ? AND created_at < ?", Time.now.beginning_of_day, Time.now + 30.minutes).limit(5).each do |a|
+                - current_user.appointments.where("start_time > ? AND start_time < ?", Time.now - 30.minutes, Time.now.end_of_day).limit(5).each do |a|
                   .border-top.my-3
                   .appointment_dash
                     = link_to appointment_path(a), class: "appointment" do

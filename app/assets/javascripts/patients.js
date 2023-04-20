@@ -18,8 +18,11 @@ function search_patients() {
     });
   }
 };
-
-function toggle_edit_note(note_id){
-  $('#note_show_box_'+note_id).toggle();
-  $('#note_edit_box_'+note_id).toggle();
-}
+$(document).ready(function() {
+  $('.toggler').click(function() {
+    var hide = $(this).attr('data-hide');
+    var show = $(this).attr('data-show');
+    $(hide).hide();
+    $(show).show();
+  });
+});

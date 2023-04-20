@@ -1,14 +1,16 @@
-.page-title
-  %h3 
-    Appointment -
-    %span= dateify(@appointment.start_time)
-    = link_to edit_appointment_path(@appointment), class: 'btn btn-sm btn-outline-primary float-end' do
-      %i.fas.fa-pencil
-      %span Edit Appointment
-    %span.float-end.p-3
-    = link_to @appointment, method: :delete, class: 'btn btn-sm btn-outline-danger float-end mr-3', data: { confirm: 'This will also delete everything attached to this appointment, including prescriptions and treatments.' } do
-      %i.fas.fa-trash
-      %span Delete Appointment
+.row
+  .col-12
+    .page-title
+      %h3 
+        Appointment -
+        %span= dateify(@appointment.start_time)
+        = link_to edit_appointment_path(@appointment), class: 'btn btn-sm btn-outline-primary float-end' do
+          %i.fas.fa-pencil
+          %span Edit Appointment
+        %span.float-end.p-3
+        = link_to @appointment, method: :delete, class: 'btn btn-sm btn-outline-danger float-end mr-3', data: { confirm: 'This will also delete everything attached to this appointment, including prescriptions and treatments.' } do
+          %i.fas.fa-trash
+          %span Delete Appointment
 .row
   .col-12
     .card
@@ -122,12 +124,12 @@
                 .card-body
                   .note_show_box{id: "note_show_box_#{n.id}"}
                     = n.body
-                    %button.btn.btn-sm.btn-outline-primary.float-end{onclick: "toggle_edit_note('#{n.id}')"} Edit
+                    %button.btn.btn-sm.btn-outline-primary.float-end.toggler{"data-hide" => "#note_show_box_#{n.id}", "data-show" => "#note_edit_box_#{n.id}"} Edit
                   .note_edit_box.hide_me{id: "note_edit_box_#{n.id}"}
                     = form_for n do |f|
                       = f.rich_text_area :body, class: "form-control", rows: 3
                       = f.submit "Update Note", class: "btn btn-sm btn-outline-primary mt-3"
-                      = link_to "Cancel", "#", class: "btn btn-sm btn-outline-secondary mt-3", onclick: "toggle_edit_note('#{n.id}')"
+                      %button.btn.btn-sm.btn-outline-secondary.mt-3{type: "button", "data-show" => "#note_show_box_#{n.id}", "data-hide" => "#note_edit_box_#{n.id}"} Cancel
                       = link_to "Delete", note_path(n), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-sm btn-outline-danger mt-3"
                   
           - @appointment.treatments.each do |t|
@@ -158,7 +160,7 @@
                           = f.hidden_field :treatment_id, value: t.id
                           = f.hidden_field :appointment_id, value: @appointment.id
                           = f.hidden_field :user_id, value: current_user.id
-                          = f.rich_text_area :body, class: "form-control", rows: 3
+                          = f.rich_text_area :body, class: "form-control", rows: 3, id: "treatment_note_#{t.id}"
                           = f.submit "Create", class: "btn btn-sm btn-outline-primary mt-3"
                         .border-top.my-3
                       - t.notes.order(created_at: :desc).each do |n|
@@ -167,14 +169,14 @@
                             %span= n.user.full_name
                             %span= dateify(n.created_at)
                           .card-body
-                            .note_show_box{id: "note_show_box_#{n.id}t"}
+                            .note_show_box{id: "note_show_box_#{n.id}_#{t.id}"}
                               = n.body
-                              %button.mt-3.btn.btn-sm.btn-outline-primary.float-end{onclick: "toggle_edit_note('#{n.id}t')"} Edit
-                            .note_edit_box.hide_me{id: "note_edit_box_#{n.id}t"}
+                              %button.btn.btn-sm.btn-outline-primary.float-end.toggler{"data-hide" => "#note_show_box_#{n.id}_#{t.id}", "data-show" => "#note_edit_box_#{n.id}_#{t.id}"} Edit
+                            .note_edit_box.hide_me{id: "note_edit_box_#{n.id}_#{t.id}"}
                               = form_for n do |f|
                                 = f.rich_text_area :body, class: "form-control", rows: 3
                                 = f.submit "Update Note", class: "btn btn-sm btn-outline-primary mt-3"
-                                = link_to "Cancel", "#", class: "btn btn-sm btn-outline-secondary mt-3", onclick: "toggle_edit_note('#{n.id}t')"
+                                %button.btn.btn-sm.btn-outline-secondary.mt-3{type: "button", "data-show" => "#note_show_box_#{n.id}_#{t.id}", "data-hide" => "#note_edit_box_#{n.id}_#{t.id}"} Cancel
                                 = link_to "Delete", note_path(n), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-sm btn-outline-danger mt-3"
                 .col-lg-6
                   .card

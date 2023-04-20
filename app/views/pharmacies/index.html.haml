@@ -12,23 +12,21 @@
         %table.table.table-hover
           %thead
             %tr
-                %th Name
-                %th Address
-                %th Phone
-                %th Email
-                %th Notes
-                %th
+              %th Name
+              %th Address
+              %th Phone
+              %th Email
+              %th
               %th
 
           %tbody
             - for pharmacy in @pharmacies
               %tr{ :class => cycle(:odd, :even) }
-                  %td= pharmacy.name
-                  %td= pharmacy.address
-                  %td= pharmacy.phone
-                  %td= pharmacy.email
-                  %td= pharmacy.notes
-                  %td
+                %td= pharmacy.name
+                %td= pharmacy.address
+                %td= pharmacy.phone
+                %td= pharmacy.email
+                %td
                   = link_to edit_pharmacy_path(pharmacy), class: 'btn btn-outline-info btn-rounded' do
                     %i.fas.fa-pen
                 %td

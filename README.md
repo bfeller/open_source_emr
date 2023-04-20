@@ -82,6 +82,8 @@ Tie prescriptions with drug listings, dosages, and other information for the pri
 
 * add legal pages (privacy policy, terms of service, etc)
 
+* Set server timezone to your timezone.
+
 * I have code in the application for deployment with cloud66, but you will need to change the deployment settings to your own.
 
 ## Acknowledgements

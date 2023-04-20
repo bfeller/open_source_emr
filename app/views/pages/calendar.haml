@@ -6,7 +6,7 @@
     .col-12
       .card
         .card-body
-          = date_field_tag :today, Date.today, class: "form-control cal_today_date mb-3", onchange: "init_calendar()"
+          = date_field_tag :today, Date.today, class: "form-control cal_today_date mb-3"
           #dp
 = content_for :custom_modals do
   = render partial: "shared/js_modal"

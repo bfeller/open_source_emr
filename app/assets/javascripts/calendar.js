@@ -6,6 +6,9 @@ function addMinutes(date, minutes) {
 $('.calendar_wrapper').ready(function() {
   if($('#calendar').length > 0) {
     init_calendar();
+    $('.cal_today_date').on('change', function() {
+      init_calendar();
+    });
   };
 });
 function init_calendar(){

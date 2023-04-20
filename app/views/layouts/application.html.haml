@@ -34,5 +34,5 @@
                 %strong= flash[:error]
 
             = yield
-    = javascript_include_tag 'application', 'data-turbo-track': 'reload'
+    = javascript_include_tag 'application', 'data-turbo-track': 'reload', type: "module"
     = yield :custom_modals

@@ -7,7 +7,10 @@
           .mb-3
             %label.form-label
               Patient
-            = f.collection_select :patient_id, Patient.all, :id, :full_name, {include_blank: false}, {class: 'form-control'}
+            - if @appointment.new_record? && params[:user_id]
+              = f.collection_select :patient_id, Patient.where(user_id: params[:user_id]), :id, :full_name, {include_blank: "Select Patient" }, {class: 'form-control'}
+            - else
+              = f.collection_select :patient_id, Patient.all, :id, :full_name, {include_blank: "Select Patient"}, {class: 'form-control'}
             - unless @appointment.new_record? || @appointment.patient.nil?
               %p
                 = link_to "Go to patient", edit_patient_path(@appointment.patient), class: 'btn btn-sm btn-outline-primary'

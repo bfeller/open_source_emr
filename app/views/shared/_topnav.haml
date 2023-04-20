@@ -23,6 +23,6 @@
                   My Info
               .dropdown-divider
               %li
-                = link_to destroy_user_session_path, data: { turbo_method: :delete }, class: 'dropdown-item' do
+                = link_to destroy_user_session_path, method: :delete , class: 'dropdown-item' do
                   %i.fas.fa-sign-out-alt
                   Logout

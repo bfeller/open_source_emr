@@ -27,5 +27,5 @@
                   = link_to edit_manage_user_path(user), class: 'btn btn-outline-info btn-rounded' do
                     %i.fas.fa-pen
                 %td
-                  = link_to manage_user_path(user), :confirm => 'Are you sure?', data: { "turbo-method": :delete }, class: 'btn btn-outline-danger btn-rounded' do
+                  = link_to manage_user_path(user), :confirm => 'Are you sure?', method: :delete, class: 'btn btn-outline-danger btn-rounded' do
                     %i.fas.fa-trash

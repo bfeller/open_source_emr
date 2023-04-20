@@ -27,10 +27,11 @@
           %a{:href => diagnoses_path}
             %i.fas.fa-bone
             Diagnoses
-    %li
-      %a{:href => manage_users_path}
-        %i.fas.fa-user-friends>
-        Users
+    - if current_user.admin?
+      %li
+        %a{:href => manage_users_path}
+          %i.fas.fa-user-friends>
+          Users
     -#%li
       %a{:href => "settings.html"}
         %i.fas.fa-cog>

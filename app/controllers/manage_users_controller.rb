@@ -1,7 +1,7 @@
 class ManageUsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
-  before_action :admin_special
+  before_action :admin_special, except: [:edit, :update]
 
   # GET /patients
   def index
